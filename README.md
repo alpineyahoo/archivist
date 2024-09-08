@@ -23,8 +23,8 @@ You cannot start/restart without timer. Timer would be ignored if the process ge
 - `ARCHIVIST_WIP_PATH`: default location where csv files being manipulated or paused by archivist are stored. must be defined.
 - `ARCHIVIST_IGNORE_URL`: URLs archivist ignores. must include __web.archive.org/*__. the delimiter must be a comma.
 
-Example:
-```sh:~/.config/archivist/config
+`~/.config/archivist/config` example:
+```sh
 export ARCHIVIST_DEFAULT_PATH="$HOME/backups/raindrop.io/"
 export ARCHIVIST_SELECT_LATEST=1
 export ARCHIVIST_WIP_PATH="$HOME/.cache/archivist"
