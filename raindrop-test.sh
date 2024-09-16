@@ -10,4 +10,5 @@ curl -s "$root/raindrops/-1?page=0&perpage=30" -H $auth | jq -r '.items[].link'
 # pageクエリーは0 index(0から始まる)
 curl -s "$root/user/stats" -H $auth | jq '.items[] | select(._id==-1) | .count'
 # 未整理フォルダの項目数を表示
+curl -s "$root/user/stats" -H $auth | jq '.items[] | select(._id==-1) | .count' | awk '{print $1"/30"}' | bc
 # 全項目数を30で割った数が工程の繰り返し回数になる
