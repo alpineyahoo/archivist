@@ -1,10 +1,11 @@
 # Archivist
-[Raindrop.io](https://raindrop.io)からエクスポートしたブックマークリストから[archive.org](https://archive.org)上にアーカイブエントリーを作成するスクリプト
+[Raindrop.io](https://raindrop.io)のブックマークリストから[archive.org](https://archive.org)上に必要に応じてアーカイブエントリーを作成するスクリプト
 
 # Prereq
 You need [waybackpy](https://github.com/akamhy/waybackpy) CLI. I implemented this script with waybackpy cli, not the waybackpy package to import.
 
 # Installation
+Check what the code in the script looks like before you install the script to check whether it suits your need and preference.
 ```sh
 foobar
 ```
@@ -12,21 +13,24 @@ foobar
 # Subcommands
 ```sh
 archivist init: run first.
-          start 90min: start the process from the raw csv with 1.5h timer. only minutes available to set.
-          restart 31min: restart from the csv bits interrupted by timer before          
+          start 90min: start the process with 1.5h timer. only minutes available to set. overwrites history.
+          restart 31min: restart the process from the history. the starting point(page) may be inaccurate.
 ```
 
 You cannot start/restart without timer. Timer would be ignored if the process gets done earlier.
 # Env Vars
-- `ARCHIVIST_DEFAULT_PATH`: default raindrop.io exported csv files location which archivist suggests you first. must be defined.
-- `ARCHIVIST_SELECT_LATEST`: always select latest csv file in `$ARCHIVIST_DEFAULT_PATH` when `archivist start` is evoked. doesn't ask you to select.
-- `ARCHIVIST_WIP_PATH`: default location where csv files being manipulated or paused by archivist are stored. must be defined.
+- `ARCHIVIST_CONFIG`: config file location. must be defined.
+- `RAINDROP_TEST_TOKEN`: raindrop test token to allow archivist to have access to your raindrops. access to raindrop.io and get the value. must be defined.
+- `ARCHIVIST_HOME`: root dir. must be defined.
 - `ARCHIVIST_IGNORE_URL`: URLs archivist ignores. must include __web.archive.org/*__. the delimiter must be a comma.
+Archivist doesn't provide any default values for env vars above since I'm lazy.
 
-`~/.config/archivist/config` example:
+`~/.config/archivist/config` example (assuming you set `ARCHIVIST_CONFIG` to it):
 ```sh
-export ARCHIVIST_DEFAULT_PATH="$HOME/backups/raindrop.io/"
-export ARCHIVIST_SELECT_LATEST=1
-export ARCHIVIST_WIP_PATH="$HOME/.cache/archivist"
-export ARCHIVIST_IGNORE_URL='google.com/search?q=*,foobar.com/tmp,web.archive.org/*'
+export RAINDROP_TEST_TOKEN="1234567foobar"
+export ARCHIVIST_HOME="$HOME/.local/share/archivist"
+export ARCHIVIST_IGNORE_URL='google.com,foobar.com/tmp,web.archive.org'
 ```
+
+# What you do manually
+`ckecklist.txt` file is created under `$ARCHIVIST_HOME` dir after script execution. The URLs inside `checklist.txt` returned 4xx HTTP error codes. That means you need find alternative URLs for those from [web.archive.org](https://web.archive.org) manually.
