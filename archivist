@@ -26,4 +26,4 @@ jq -r '.items[].link' |
 grep -vFf $ARCHIVIST_IGNORE_URL_FILE |
 /usr/local/bin/httpx -nc -silent -sc |
 awk -F '[] []' '{print $3","$1}' |
-xargs -I _ bash -c 'avail _'
+xargs -n1 -P5 -I _ bash -c 'avail _'
