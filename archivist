@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"
 ARCHIVIST_CONFIG=${ARCHIVIST_CONFIG:-$HOME/.config/archivist/config}
@@ -12,8 +12,17 @@ touch $ARCHIVIST_IGNORE_URL_FILE # the file must include web.archive.org
 auth="Authorization: Bearer $RAINDROP_TEST_TOKEN"
 root='https://api.raindrop.io/rest/v1'
 
-curl -s "$root/raindrops/-1?page=0&perpage=30" -H $auth |
+avail(){
+	url=$(echo "$@" | cut -d, -f2 )
+	curl -sL "https://archive.org/wayback/available?url=$url" |
+	jq -r '.archived_snapshots.closest.available // "null"' |
+	paste -d ',' - <(echo "$@");
+}
+export -f avail
+
+curl -s "$root/raindrops/-1?page=0&perpage=30" -H "$auth" |
 jq -r '.items[].link' |
 grep -vFf $ARCHIVIST_IGNORE_URL_FILE |
 /usr/local/bin/httpx -nc -silent -sc |
-awk -F '[] []' '{print $3","$1}'
+awk -F '[] []' '{print $3","$1}' |
+xargs -I _ bash -c 'avail _'
