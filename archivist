@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 
 ARCHIVIST_CONFIG=${ARCHIVIST_CONFIG:-$HOME/.config/archivist/config}
-source $ARCHIVIST_CONFIG
+[ -f $ARCHIVIST_CONFIG ] && source $ARCHIVIST_CONFIG
 ARCHIVIST_DATA_DIR=${ARCHIVIST_DATA_DIR:-$HOME/.local/share/archivist}
+mkdir -p $ARCHIVIST_DAT_DIR
 ARCHIVIST_IGNORE_URL_FILE=${ARCHIVIST_IGNORE_URL_FILE:-$HOME/.config/archivist/ignore.conf}
+touch $ARCHIVIST_IGNORE_URL_FILE # the file must include web.archive.org
