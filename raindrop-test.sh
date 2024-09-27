@@ -2,6 +2,7 @@
 # ゴミ箱を除く全項目のコレクションの識別子は0
 # $RAINDROP_TEST_TOKEN はユーザーが取得した自分用のraindrop test token, 事前に環境変数として設定しておく
 
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"
 auth="Authorization: Bearer $RAINDROP_TEST_TOKEN"
 root='https://api.raindrop.io/rest/v1'
 
