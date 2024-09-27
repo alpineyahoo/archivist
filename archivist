@@ -1,8 +1,10 @@
 #!/usr/bin/env zsh
 
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"
 ARCHIVIST_CONFIG=${ARCHIVIST_CONFIG:-$HOME/.config/archivist/config}
 [ -f $ARCHIVIST_CONFIG ] && source $ARCHIVIST_CONFIG
 ARCHIVIST_DATA_DIR=${ARCHIVIST_DATA_DIR:-$HOME/.local/share/archivist}
-mkdir -p $ARCHIVIST_DAT_DIR
+mkdir -p $ARCHIVIST_DATA_DIR
 ARCHIVIST_IGNORE_URL_FILE=${ARCHIVIST_IGNORE_URL_FILE:-$HOME/.config/archivist/ignore.conf}
 touch $ARCHIVIST_IGNORE_URL_FILE # the file must include web.archive.org
+[[ -z $RAINDROP_TEST_TOKEN ]] && echo "Set \$RAINDROP_TEST_TOKEN variable before execution" && exit 1
