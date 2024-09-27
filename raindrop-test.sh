@@ -12,7 +12,7 @@ curl -s "$root/raindrops/-1?page=0&perpage=30" -H $auth | jq -r '.items[].link'
 
 get_link | grep -vFf $ARCHIVIST_IGNORE_URL_FILE # ignore.conf ファイルに記載されたURL(ドメイン)は対象としない
 
-curl -sL "https://archive.org/wayback/available?url=foobar.com/article.html" | jq -e '.archived_snapshots.closest.available'
+curl -sL "https://archive.org/wayback/available?url=foobar.com/article.html" | jq -e '.archived_snapshots.closest.available' > /dev/null
 # stdout は true または null なので、-e オプション(exit status)をつけると $?(終了ステータス) は 0(true) or 1(null)
 
 curl -s "$root/user/stats" -H $auth | jq '.items[] | select(._id==-1) | .count'
