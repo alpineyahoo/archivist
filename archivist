@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:$HOME/.local/bun/bin"
 ARCHIVIST_CONFIG=${ARCHIVIST_CONFIG:-$HOME/.config/archivist/config}
 [ -f $ARCHIVIST_CONFIG ] && source $ARCHIVIST_CONFIG
 ARCHIVIST_DATA_DIR=${ARCHIVIST_DATA_DIR:-$HOME/.local/share/archivist}
@@ -13,13 +13,14 @@ auth="Authorization: Bearer $RAINDROP_TEST_TOKEN"
 root='https://api.raindrop.io/rest/v1'
 
 avail(){
-	url=$(echo "$@" | cut -d, -f2 )
+	url=$(bun run cli.ts $(echo "$@" | cut -d, -f2 ))
 	curl -sL "https://archive.org/wayback/available?url=$url" |
 	jq -r '.archived_snapshots.closest.available // "null"' |
 	paste -d ',' - <(echo "$@");
 }
 export -f avail
 
+cd "$(dirname "$(readlink -f "$0")")"
 curl -s "$root/raindrops/-1?page=0&perpage=30" -H "$auth" |
 jq -r '.items[].link' |
 grep -vFf $ARCHIVIST_IGNORE_URL_FILE |
