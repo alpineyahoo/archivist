@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-mkdir -p $HOME/.config/archivist # comment out if unused
-mkdir -p $HOME/.local/share/archivist # comment out if unused
 ARCHIVIST_CONFIG=${ARCHIVIST_CONFIG:-$HOME/.config/archivist/config}
 source $ARCHIVIST_CONFIG
 ARCHIVIST_DATA_DIR=${ARCHIVIST_DATA_DIR:-$HOME/.local/share/archivist}
