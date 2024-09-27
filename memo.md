@@ -34,4 +34,5 @@ $URL, 帰り値, $?
 wc -l < $raindrop_csv_file | tr -d ' ' # 行数カウント
 sed -n 100,110p $raindrop_csv_file | cut -d, -f5 # 100行目から110行目までを抜き出し、url項目だけを表示
 num=38697 && bc -e "$num/10; $num%10" # ブックマーク合計数を10で割った商と余り
+sort -u file.csv | sponge file.csv
 ```
