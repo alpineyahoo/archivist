@@ -1,1 +1,1 @@
-console.log(Bun.argv);
+console.log(encodeURI(process.argv[2]));
