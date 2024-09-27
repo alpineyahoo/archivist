@@ -22,13 +22,13 @@ You cannot start/restart without timer. Timer would be ignored if the process ge
 - `ARCHIVIST_CONFIG`: config file location. defaults to `~/.config/archivist/config`.
 - `RAINDROP_TEST_TOKEN`: raindrop test token to allow archivist to have access to your raindrops. access to raindrop.io and get the value. must be defined.
 - `ARCHIVIST_DATA_DIR`: defaults to `~/.local/share/archivist`.
-- `ARCHIVIST_IGNORE_URL`: URLs archivist ignores. must include __web.archive.org/*__. the delimiter must be a comma.
+- `ARCHIVIST_IGNORE_URL_FILE`: file to store URLs archivist ignores. must include __web.archive.org/*__. defaults to `~/.config/archivist/ignore.conf`.
 
 `~/.config/archivist/config` example (default config location):
 ```sh
 export RAINDROP_TEST_TOKEN="1234567foobar"
 # export ARCHIVIST_DATA_DIR="$HOME/.local/share/archivist"
-export ARCHIVIST_IGNORE_URL='google.com,foobar.com/tmp,web.archive.org'
+# export ARCHIVIST_IGNORE_URL="$HOME/.config/archivist/ignore.conf"
 ```
 
 # What you do manually
