@@ -10,6 +10,8 @@ curl -s "$root/raindrops/-1?page=0&perpage=30" -H $auth | jq -r '.items[].link'
 # 未整理フォルダの最初のページの30項目を取得し、そこからURLを取得
 # pageクエリーは0 index(0から始まる)
 
+get_link | grep -vFf $ARCHIVIST_IGNORE_URL_FILE # ignore.conf ファイルに記載されたURL(ドメイン)は対象としない
+
 curl -s "$root/user/stats" -H $auth | jq '.items[] | select(._id==-1) | .count'
 # 未整理フォルダの項目数を表示
 
