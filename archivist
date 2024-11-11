@@ -13,7 +13,7 @@ auth="Authorization: Bearer $RAINDROP_TEST_TOKEN"
 root='https://api.raindrop.io/rest/v1'
 
 avail(){
-	url=$(bun run cli.ts $(echo "$@" | cut -d, -f2 ))
+	url=$(node -p "encodeURI(process.argv[1])" $(echo "$@" | cut -d, -f2 ))
 	curl -sL "https://archive.org/wayback/available?url=$url" |
 	jq -r '.archived_snapshots.closest.available // "null"' |
 	paste -d ',' - <(echo "$@");
